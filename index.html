@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>New Tab</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="time">
+			<p id="clock" class="fade-in">12:00:00 AM</p>
+		</div>
+		<div class="date">
+			<p id="date" class="fade-in">Monday, January 1</p>
+		</div>
+	</div>
+
+	<script>
+		function updateTime() {
+			const now = new Date();
+			const timeElement = document.getElementById('clock');
+			const dateElement = document.getElementById('date');
+
+			const newTime = now.toLocaleTimeString('en-US', {
+				hour12: true
+			});
+
+			if (timeElement.textContent !== newTime) {
+				timeElement.classList.remove('pulse');
+				void timeElement.offsetWidth; // Trigger reflow
+				timeElement.classList.add('pulse');
+			}
+
+			timeElement.textContent = newTime;
+			dateElement.textContent = now.toLocaleDateString('en-US', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			});
+		}
+
+		updateTime();
+		setInterval(updateTime, 1000);
+	</script>
+</body>
+
+</html>
